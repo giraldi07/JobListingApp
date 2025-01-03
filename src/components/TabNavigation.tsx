@@ -23,11 +23,16 @@ const TabNavigation: React.FC<TabNavigationProps> = ({ activeTab, onTabChange })
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <nav className="bg-gray-800 shadow-md p-4 fixed w-full top-0 z-10">
+    <nav className="bg-slate-900 shadow-md p-4 fixed w-full top-0 z-10">
       {/* Navbar Container */}
-      <div className="flex items-center justify-between max-w-screen- mx-auto">
+      <div className="flex items-center justify-between max-w-screen-md mx-auto px-4">
         {/* Logo */}
-        <div className="text-white text-2xl font-semibold">JobFinder</div>
+        <div className="text-white text-2xl px-4 font-semibold border-r border-gray-700">
+          <h2>
+             JobFinder
+          </h2>
+        </div>
+
 
         {/* Menu Links (Desktop) */}
         <div className="hidden lg:flex items-center space-x-6">

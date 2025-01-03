@@ -77,7 +77,12 @@ const JobList: React.FC<JobListProps> = ({ activeTab }) => {
   }
 
   return (
-    <div className="bg-gray-800 p-6 rounded-lg shadow-lg mt-6">
+    <div className="bg-slate-900 p-6 rounded-lg shadow-lg mt-6">
+      <div>
+        <h2 className="text-3xl font-semibold text-white text-center mb-6">
+          Lowongan Saat Ini
+        </h2>
+      </div>
       {/* Loading and Error States */}
       {loading ? (
         <div className="text-center text-gray-400">Memuat...</div>

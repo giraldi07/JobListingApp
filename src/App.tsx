@@ -89,13 +89,13 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white p-0">
+    <div className="min-h-screen bg-slate-900 text-white p-0">
       {/* Navbar */}
       <TabNavigation activeTab={activeTab} onTabChange={setActiveTab} />
 
-      <div className="max-w-full mx-auto bg-gray-800 rounded-lg shadow-xl p-2">
+      <div className="max-w-full mx-auto bg-slate-900 rounded-lg shadow-xl p-2">
         {/* Hero Section */}
-        <div className="border-b border-slate-500 mt-8 text-white p-6 shadow-md mb-6">
+        <div className="border-b border-gray-800 mt-8 text-white p-6 shadow-md mb-6">
           <div className="flex flex-col lg:flex-row items-center justify-between space-y-6 lg:space-y-0 lg:space-x-8">
             {/* Gambar di sebelah atas untuk mobile, di sebelah kanan untuk desktop */}
             <div
@@ -127,22 +127,25 @@ const App: React.FC = () => {
         {/* Job List */}
         <JobList activeTab={activeTab} />
 
-        <div>
+        <div className="mt-20 mb-20">
           <AnotherJob />
         </div>
 
-        {/* Job Portal Lists */}
-        <JobPortal />
+        <div className="mt-20 mb-20">
+          {/* Job Portal Lists */}
+          <JobPortal />
+        </div>
+
 
         {/* Footer Section */}
-        <div className="bg-blue-600 text-white p-4 rounded-lg shadow-md mt-6">
-          <p className="text-center text-gray-200">
-            Data Update secara berkala berdasarkan web{' '}
-            <a href="https://www.disnakerja.com/" className="underline hover:text-gray-300">
-              Disnakerja.com
-            </a>
-          </p>
+        <div className="bg-slate-900 border-t border-gray-800 text-white py-6 mt-6">
+          <div className="max-w-7xl mx-auto px-6 text-center">
+            <p className="text-sm text-gray-400">
+              &copy; {new Date().getFullYear()} <a href="https://github.com/giraldi07" className="hover:text-gray-200">Giraldi Prama Yudistira</a>. All rights reserved.
+            </p>
+          </div>
         </div>
+
       </div>
 
       {/* Scroll to Top Button */}

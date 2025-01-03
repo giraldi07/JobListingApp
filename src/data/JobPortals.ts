@@ -29,6 +29,6 @@ export const jobPortals = [
   {
     name: 'LinkedIn Jobs',
     url: 'https://www.linkedin.com/jobs',
-    logoUrl: 'https://image.similarpng.com/thumbnail/2020/07/Linkedin-logo-transparent-PNG.png',  // Favicon URL
+    logoUrl: 'https://blog.waalaxy.com/wp-content/uploads/2021/01/3-1.png',  // Favicon URL
   },
 ];

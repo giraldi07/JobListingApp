@@ -92,7 +92,7 @@ const AnotherJob: React.FC = () => {
   };
 
   return (
-    <div className="bg-gray-800 p-4 sm:p-6 rounded-lg shadow-lg mt-6">
+    <div className="bg-slate-900 p-4 sm:p-6 rounded-lg shadow-lg mt-6">
       <h2 className="text-3xl font-semibold text-white text-center mb-6">Lowongan Lainnya</h2>
 
       <div className="mb-4">
@@ -102,7 +102,7 @@ const AnotherJob: React.FC = () => {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Cari lowongan..."
-            className="w-full p-4 pl-12 pr-4 rounded-md bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full p-4 pl-12 pr-4 rounded-md bg-slate-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
         </div>
@@ -118,7 +118,7 @@ const AnotherJob: React.FC = () => {
         <div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {currentJobs.map((job, index) => (
-              <div key={index} className="bg-gray-700 p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+              <div key={index} className="bg-slate-800 p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow">
                 <h3 className="text-xl font-semibold text-white mb-2">{job.job_title}</h3>
                 <div className="flex flex-col space-y-2 text-gray-400">
                   <div className="flex items-center">
