@@ -1,33 +1,16 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import { VitePWA } from 'vite-plugin-pwa';
 
+// https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    react(),
-    VitePWA({
-      registerType: 'autoUpdate',
-      manifest: {
-        name: 'Job Listing PWA',
-        short_name: 'Jobs PWA',
-        description: 'Find your dream job',
-        theme_color: '#ffffff',
-        icons: [
-          {
-            src: '/src/assets/logo.png',
-            sizes: '192x192',
-            type: 'image/svg+xml'
-          },
-          {
-            src: '/src/assets/logo.png',
-            sizes: '512x512',
-            type: 'image/svg+xml'
-          }
-        ]
-      }
-    })
-  ],
-  optimizeDeps: {
-    exclude: ['lucide-react'],
+  base: './', // Gunakan './' untuk path relatif (berguna jika deploy di subfolder)
+  plugins: [react()],
+  build: {
+    outDir: 'dist', // Output build folder (default: 'dist')
+    assetsDir: './assets', // Folder untuk menyimpan asset statis
+  },
+  server: {
+    port: 3000, // Port development server
+    open: true, // Otomatis buka browser saat server dijalankan
   },
 });

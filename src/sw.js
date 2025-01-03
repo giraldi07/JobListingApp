@@ -4,9 +4,9 @@ const CACHE_NAME = 'job-listing-cache-v1';
 const urlsToCache = [
   '/',
   '/index.html',
-  '/assets/hero.svg',
-  '/assets/logo.png', // Add other essential assets here
-  '/index.css', // Add other essential CSS or JS files here
+  '/src/assets/hero.svg',
+  '/src/assets/logo.png', // Add other essential assets here
+  '/src/index.css', // Add other essential CSS or JS files here
 ];
 
 // Install event - cache the necessary files
