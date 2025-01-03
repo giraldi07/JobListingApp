@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Analytics } from '@vercel/analytics/next';
 import { FaArrowUp } from 'react-icons/fa';
 import JobList from './components/JobList';
 import TabNavigation from './components/TabNavigation';
@@ -147,7 +146,7 @@ const App: React.FC = () => {
           </div>
         </div>
 
-        <Analytics />
+      
 
       </div>
 
