@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Analytics } from '@vercel/analytics/next';
 import { FaArrowUp } from 'react-icons/fa';
 import JobList from './components/JobList';
 import TabNavigation from './components/TabNavigation';
@@ -103,7 +104,7 @@ const App: React.FC = () => {
               onMouseMove={handleMouseMove} // Menambahkan event handler untuk pergerakan mouse
             >
               <img
-                src="/public/assets/hero.svg"  // Memindahkan gambar ke folder yang sesuai
+                src="/assets/hero.svg"  // Memindahkan gambar ke folder yang sesuai
                 alt="Peluang Karir"
                 className="w-full h-auto rounded-lg transition-transform duration-150 ease-out"
                 style={{
@@ -145,6 +146,8 @@ const App: React.FC = () => {
             </p>
           </div>
         </div>
+
+        <Analytics />
 
       </div>
 

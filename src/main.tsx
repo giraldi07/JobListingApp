@@ -6,19 +6,27 @@ import './index.css';
 // Register Service Worker
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js').then(
-      () => {
-        console.log('ServiceWorker registration successful');
-      },
-      (err) => {
-        console.log('ServiceWorker registration failed: ', err);
-      }
-    );
+    // Check if sw.js exists in the public directory
+    navigator.serviceWorker
+      .register('/sw.js')  // Ensure the sw.js file is in the root of public directory
+      .then(() => {
+        console.log('Service Worker registration successful');
+      })
+      .catch((err) => {
+        console.error('Service Worker registration failed: ', err);
+      });
   });
 }
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>
-);
+// Ensure the element with id 'root' exists
+const rootElement = document.getElementById('root');
+if (rootElement) {
+  const root = createRoot(rootElement);
+  root.render(
+    <StrictMode>
+      <App />
+    </StrictMode>
+  );
+} else {
+  console.error('Root element not found');
+}
