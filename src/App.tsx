@@ -103,7 +103,7 @@ const App: React.FC = () => {
               onMouseMove={handleMouseMove} // Menambahkan event handler untuk pergerakan mouse
             >
               <img
-                src="/assets/hero.png"  // Memindahkan gambar ke folder yang sesuai
+                src="/src/assets/hero.png"  // Memindahkan gambar ke folder yang sesuai
                 alt="Peluang Karir"
                 className="w-full h-auto rounded-lg transition-transform duration-150 ease-out"
                 style={{
