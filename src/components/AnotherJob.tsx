@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FaBuilding, FaMapMarkerAlt, FaRegClock, FaUsers, FaDollarSign, FaGraduationCap, FaCalendarAlt } from 'react-icons/fa';
+import { FaBuilding, FaMapMarkerAlt, FaRegClock, FaUsers, FaDollarSign, FaGraduationCap, FaCalendarAlt, FaSearch } from 'react-icons/fa';
 
 interface Job {
   job_age: string;
@@ -26,30 +26,27 @@ const AnotherJob: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const jobsPerPage = 8; // Membatasi 20 data per halaman
+  const [searchQuery, setSearchQuery] = useState<string>(''); // State untuk pencarian
+  const jobsPerPage = 8;
 
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        // Mengambil data JSON dari folder public
         const response = await fetch('/AnotherJob.json');
-        
-        // Cek jika respons berhasil
         if (!response.ok) {
           throw new Error('Gagal mengambil data');
         }
 
         const data = await response.json();
 
-        // Mengonversi data is_active dari string "True"/"False" menjadi boolean
         const formattedJobs = data.map((job: any) => ({
           ...job,
-          is_active: job.is_active === 'True', // Mengubah "True" menjadi true dan "False" menjadi false
+          is_active: job.is_active === 'True',
         }));
 
         setJobs(formattedJobs);
       } catch (err) {
-        console.error(err);  // Log error ke konsol untuk debugging
+        console.error(err);
         setError('Gagal mengambil data lowongan');
       } finally {
         setLoading(false);
@@ -59,29 +56,34 @@ const AnotherJob: React.FC = () => {
     fetchJobs();
   }, []);
 
-  // Membatasi jumlah data per halaman
+  // Filter berdasarkan pencarian
+  const filteredJobs = jobs.filter((job) => {
+    return (
+      job.job_title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      job.company.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      job.job_location.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      job.job_type.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  });
+
   const indexOfLastJob = currentPage * jobsPerPage;
   const indexOfFirstJob = indexOfLastJob - jobsPerPage;
-  const currentJobs = jobs.slice(indexOfFirstJob, indexOfLastJob);
+  const currentJobs = filteredJobs.slice(indexOfFirstJob, indexOfLastJob);
 
-  const totalPages = Math.ceil(jobs.length / jobsPerPage);
+  const totalPages = Math.ceil(filteredJobs.length / jobsPerPage);
 
-  // Fungsi untuk menangani pergantian halaman
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
-  // Helper function to format date
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString();
   };
 
-  // Menghitung halaman yang akan ditampilkan di pagination
   const pageNumbers = () => {
-    const totalPagesToShow = 4; // Menampilkan hanya 4 halaman
-    const startPage = Math.max(currentPage - 2, 1); // Menampilkan 2 halaman sebelumnya
-    const endPage = Math.min(startPage + totalPagesToShow - 1, totalPages); // Menampilkan 2 halaman setelahnya jika ada
+    const totalPagesToShow = 4;
+    const startPage = Math.max(currentPage - 2, 1);
+    const endPage = Math.min(startPage + totalPagesToShow - 1, totalPages);
 
-    // Membatasi jumlah halaman agar tidak lebih dari total halaman yang ada
     const pages = [];
     for (let i = startPage; i <= endPage; i++) {
       pages.push(i);
@@ -92,6 +94,19 @@ const AnotherJob: React.FC = () => {
   return (
     <div className="bg-gray-800 p-4 sm:p-6 rounded-lg shadow-lg mt-6">
       <h2 className="text-3xl font-semibold text-white text-center mb-6">Lowongan Lainnya</h2>
+
+      <div className="mb-4">
+        <div className="relative">
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Cari lowongan..."
+            className="w-full p-4 pl-12 pr-4 rounded-md bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
+        </div>
+      </div>
 
       {loading ? (
         <div className="text-center text-gray-400">Memuat...</div>
@@ -105,7 +120,6 @@ const AnotherJob: React.FC = () => {
             {currentJobs.map((job, index) => (
               <div key={index} className="bg-gray-700 p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow">
                 <h3 className="text-xl font-semibold text-white mb-2">{job.job_title}</h3>
-                
                 <div className="flex flex-col space-y-2 text-gray-400">
                   <div className="flex items-center">
                     <FaBuilding className="mr-2 text-blue-400" />

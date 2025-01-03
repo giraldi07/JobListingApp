@@ -46,13 +46,30 @@ const App: React.FC = () => {
       <div className="max-w-full mx-auto bg-gray-800 rounded-lg shadow-xl p-2">
         {/* <h1 className="text-4xl font-semibold text-center text-white mb-6">Lowongan Kerja Terbaru</h1> */}
 
-        {/* Hero Section */}
-        <div className="border-b border-slate-500 text-white p-6 shadow-md mb-6">
-          <h2 className="text-center text-2xl mt-20 sm:mt-30 md:mt-20 lg:mt-20 font-semibold">Temukan Peluang Karir Terbaik</h2>
-          <p className="text-center text-gray-200 mt-2">
-            Temukan pekerjaan terbaru di berbagai bidang seperti BUMN, Swasta, dan Fresh Graduate.
-          </p>
+        // Hero Section
+        <div className="border-b border-slate-500 mt-8 text-white p-6 shadow-md mb-6">
+          <div className="flex flex-col lg:flex-row items-center justify-between space-y-6 lg:space-y-0 lg:space-x-8">
+            {/* Teks di sebelah kiri */}
+            <div className="flex-1 text-center lg:text-left">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold">
+                Temukan Peluang Karir Terbaik
+              </h2>
+              <p className="text-gray-200 mt-2 text-sm sm:text-base md:text-lg lg:text-xl">
+                Temukan pekerjaan terbaru di berbagai bidang seperti BUMN, Swasta, dan Fresh Graduate.
+              </p>
+            </div>
+
+            {/* Gambar di sebelah kanan */}
+            <div className="flex-1">
+              <img
+                src="/public/hero.png"  // Ganti dengan URL gambar yang diinginkan
+                alt="Peluang Karir"
+                className="w-full h-auto rounded-lg shadow-md"
+              />
+            </div>
+          </div>
         </div>
+
 
         {/* Job List */}
         <JobList activeTab={activeTab} />
