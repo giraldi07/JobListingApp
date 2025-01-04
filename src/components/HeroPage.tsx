@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import heroImage from '@assets/lokal.png'; // Mengimpor gambar
 
 const HeroPage: React.FC = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -26,11 +27,10 @@ const HeroPage: React.FC = () => {
         </p>
       </div>
 
-
       {/* Right Side - Image */}
       <div className="md:w-1/2 mt-8 md:mt-0">
         <img
-          src="/src/assets/lokal.png" // Replace with your image URL
+          src={heroImage} // Menggunakan gambar yang sudah diimpor
           alt="Hero"
           className="w-full h-auto transition-transform duration-500 ease-in-out bounce-animation"
           style={{

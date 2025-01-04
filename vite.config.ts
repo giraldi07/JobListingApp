@@ -9,15 +9,17 @@ export default defineConfig({
     react(),
     sitemap({
       hostname: 'https://job-listing-app-puce.vercel.app/', // Tambahkan hostname
-      exclude: ['/some-page'], // Jika ada halaman yang ingin dikecualikan
+      // exclude: ['/some-page'], // Jika ada halaman yang ingin dikecualikan
     }),
   ],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'), // Alias untuk folder src
       '@assets': path.resolve(__dirname, './src/assets'),
+      '@slide': path.resolve(__dirname, './src/assets/slide'),
       '@components': path.resolve(__dirname, './src/components'),
       '@data': path.resolve(__dirname, './src/data'),
+      '@pages': path.resolve(__dirname, './src/pages'),
     },
   },
   build: {
