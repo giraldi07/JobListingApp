@@ -5,6 +5,7 @@ import TabNavigation from './components/TabNavigation';
 import JobPortal from './components/JobPortal';
 import AnotherJob from './components/AnotherJob';
 import heroImage from './assets/hero.png';
+import { Analytics } from "@vercel/analytics/react"
 
 type TabType = 'all' | 'bumn' | 'swasta' | 'fresh';
 
@@ -91,6 +92,7 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-slate-900 text-white p-0">
+      <Analytics />
       {/* Navbar */}
       <TabNavigation activeTab={activeTab} onTabChange={setActiveTab} />
 
