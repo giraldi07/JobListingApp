@@ -1,3 +1,19 @@
+# robots.txt for https://job-listing-app-puce.vercel.app/
+
+# Disallow all crawlers from accessing sensitive or unnecessary directories
 User-agent: *
-Disallow: /some-page
+Disallow: /src/
+Disallow: /node_modules/
+Disallow: /dist/
+Disallow: /assets/
+Disallow: /data/
+
+# Allow crawlers to access specific pages
+Allow: /google6eef663737357af3
+Allow: /about
+Allow: /lokal-jobs
+Allow: /inter-jobs
+Allow: /
+
+# Sitemap location
 Sitemap: https://job-listing-app-puce.vercel.app/sitemap.xml
