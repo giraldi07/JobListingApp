@@ -22,11 +22,13 @@ interface Job {
 }
 
 const AnotherJob: React.FC = () => {
-  const [jobs, setJobs] = useState<Job[]>([]); // Correct type for jobs state
+  const [jobs, setJobs] = useState<Job[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [searchQuery, setSearchQuery] = useState<string>(''); // State for search query
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [locationFilter, setLocationFilter] = useState<string>(''); // State untuk filter lokasi
+  const [companyFilter, setCompanyFilter] = useState<string>(''); // State untuk filter perusahaan
   const jobsPerPage = 8;
 
   useEffect(() => {
@@ -38,8 +40,7 @@ const AnotherJob: React.FC = () => {
         }
 
         const data = await response.json();
-        
-        // Check if the data format is correct before using it
+
         if (Array.isArray(data)) {
           const formattedJobs: Job[] = data.map((job: any) => ({
             ...job,
@@ -60,14 +61,23 @@ const AnotherJob: React.FC = () => {
     fetchJobs();
   }, []);
 
-  // Filter jobs based on the search query
+  // Filter berdasarkan search query, lokasi, dan perusahaan
   const filteredJobs = jobs.filter((job) => {
-    return (
+    const matchesSearchQuery =
       job.job_title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       job.company.toLowerCase().includes(searchQuery.toLowerCase()) ||
       job.job_location.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      job.job_type.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+      job.job_type.toLowerCase().includes(searchQuery.toLowerCase());
+
+    const matchesLocationFilter = locationFilter
+      ? job.job_location.toLowerCase().includes(locationFilter.toLowerCase())
+      : true;
+
+    const matchesCompanyFilter = companyFilter
+      ? job.company.toLowerCase().includes(companyFilter.toLowerCase())
+      : true;
+
+    return matchesSearchQuery && matchesLocationFilter && matchesCompanyFilter;
   });
 
   const indexOfLastJob = currentPage * jobsPerPage;
@@ -96,10 +106,11 @@ const AnotherJob: React.FC = () => {
   };
 
   return (
-    <div className="bg-slate-900 p-4 sm:p-6 rounded-lg shadow-lg mt-6">
+    <div className="bg-slate-900 p-4 sm:p-6 rounded-lg shadow-lg mt-6 max-w-screen-xl mx-auto">
       <h2 className="text-3xl font-semibold text-white text-center mb-6">Lowongan Lainnya</h2>
 
-      <div className="mb-4">
+      {/* Filter Input */}
+      <div className="mb-4 grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="relative">
           <input
             type="text"
@@ -109,6 +120,24 @@ const AnotherJob: React.FC = () => {
             className="w-full p-4 pl-12 pr-4 rounded-md bg-slate-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
+        </div>
+        <div className="relative">
+          <input
+            type="text"
+            value={locationFilter}
+            onChange={(e) => setLocationFilter(e.target.value)}
+            placeholder="Filter lokasi..."
+            className="w-full p-4 pl-4 pr-4 rounded-md bg-slate-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500"
+          />
+        </div>
+        <div className="relative">
+          <input
+            type="text"
+            value={companyFilter}
+            onChange={(e) => setCompanyFilter(e.target.value)}
+            placeholder="Filter perusahaan..."
+            className="w-full p-4 pl-4 pr-4 rounded-md bg-slate-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500"
+          />
         </div>
       </div>
 
@@ -143,7 +172,7 @@ const AnotherJob: React.FC = () => {
                   </div>
                   <div className="flex items-center">
                     <FaDollarSign className="mr-2 text-green-400" />
-                    {job.base_salary || "Not specified"}
+                    {job.base_salary || 'Not specified'}
                   </div>
                   <div className="flex items-center">
                     <FaGraduationCap className="mr-2 text-purple-400" />

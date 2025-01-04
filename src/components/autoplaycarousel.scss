@@ -1,0 +1,51 @@
+.carousel-container {
+  overflow: hidden;
+  position: relative;
+}
+
+.carousel-item img {
+  border-radius: 10px; /* Adjust value as needed */
+  transition: all 0.3s ease; /* For smooth transition effect */
+}
+
+.carousel-item img:hover {
+  filter: brightness(100%); /* Optional: Add a hover effect */
+}
+
+
+.carousel-track-left,
+.carousel-track-right {
+  display: flex;
+  justify-content: center; /* Center the items */
+  animation: scroll-left 20s linear infinite; /* Left to Right scrolling */
+}
+
+.carousel-track-right {
+  animation: scroll-right 20s linear infinite; /* Right to Left scrolling */
+}
+
+.carousel-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  width: 100px; /* Adjust size of carousel items */
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes scroll-right {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}

@@ -11,16 +11,16 @@ interface Job {
 
 interface JobListProps {
   activeTab: TabType;
+  onTabChange: (tab: TabType) => void;
 }
 
 const JobList: React.FC<JobListProps> = ({ activeTab }) => {
-  const [filteredJobs, setFilteredJobs] = useState<Job[]>([]); // Keep only filteredJobs
+  const [filteredJobs, setFilteredJobs] = useState<Job[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const jobsPerPage = 12;
+  const jobsPerPage = 24;
 
-  // Fetch jobs from API based on active tab
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -39,7 +39,7 @@ const JobList: React.FC<JobListProps> = ({ activeTab }) => {
 
         const response = await fetch(url);
         const data = await response.json();
-        setFilteredJobs(data); // Use filteredJobs directly
+        setFilteredJobs(data);
       } catch (err) {
         setError('Gagal mengambil data');
       } finally {
@@ -50,39 +50,29 @@ const JobList: React.FC<JobListProps> = ({ activeTab }) => {
     fetchData();
   }, [activeTab]);
 
-  // Pagination logic
   const indexOfLastJob = currentPage * jobsPerPage;
   const indexOfFirstJob = indexOfLastJob - jobsPerPage;
   const currentJobs = filteredJobs.slice(indexOfFirstJob, indexOfLastJob);
 
-  // Total pages calculation
   const totalPages = Math.ceil(filteredJobs.length / jobsPerPage);
 
-  // Handle page changes
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
 
-  // Logic to show a limited number of pages in the pagination controls
   const pageNumbers = [];
   for (let i = 1; i <= totalPages; i++) {
-    // Display only the first and last page, and a few pages around the current page
     if (
-      i === 1 || // Always show the first page
-      i === totalPages || // Always show the last page
-      (i >= currentPage - 2 && i <= currentPage + 2) // Show pages around the current page
+      i === 1 ||
+      i === totalPages ||
+      (i >= currentPage - 2 && i <= currentPage + 2)
     ) {
       pageNumbers.push(i);
     }
   }
 
   return (
-    <div className="bg-slate-900 p-6 rounded-lg shadow-lg mt-6">
-      <div>
-        <h2 className="text-3xl font-semibold text-white text-center mb-6">
-          Lowongan Saat Ini
-        </h2>
-      </div>
+    <div className="bg-slate-900 p-6 rounded-lg shadow-lg mt-6 max-w-screen-xl mx-auto">
       {/* Loading and Error States */}
       {loading ? (
         <div className="text-center text-gray-400">Memuat...</div>
@@ -93,7 +83,7 @@ const JobList: React.FC<JobListProps> = ({ activeTab }) => {
       ) : (
         <>
           {/* Job Cards */}
-          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-2">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
             {currentJobs.map((job, index) => (
               <JobCard key={index} job={job} />
             ))}
