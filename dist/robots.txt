@@ -1,3 +1,4 @@
 User-agent: *
-Disallow: /some-page
+Allow: /
+
 Sitemap: https://job-listing-app-puce.vercel.app/sitemap.xml
