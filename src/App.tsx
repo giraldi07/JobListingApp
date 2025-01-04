@@ -4,6 +4,7 @@ import JobList from './components/JobList';
 import TabNavigation from './components/TabNavigation';
 import JobPortal from './components/JobPortal';
 import AnotherJob from './components/AnotherJob';
+import heroImage from './assets/hero.png';
 
 type TabType = 'all' | 'bumn' | 'swasta' | 'fresh';
 
@@ -103,7 +104,7 @@ const App: React.FC = () => {
               onMouseMove={handleMouseMove} // Menambahkan event handler untuk pergerakan mouse
             >
               <img
-                src="/src/assets/hero.png"  // Memindahkan gambar ke folder yang sesuai
+                src={heroImage}  // Memindahkan gambar ke folder yang sesuai
                 alt="Peluang Karir"
                 className="w-full h-auto rounded-lg transition-transform duration-150 ease-out"
                 style={{

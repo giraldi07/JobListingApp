@@ -22,11 +22,11 @@ interface Job {
 }
 
 const AnotherJob: React.FC = () => {
-  const [jobs, setJobs] = useState<Job[]>([]);
+  const [jobs, setJobs] = useState<Job[]>([]); // Correct type for jobs state
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [searchQuery, setSearchQuery] = useState<string>(''); // State untuk pencarian
+  const [searchQuery, setSearchQuery] = useState<string>(''); // State for search query
   const jobsPerPage = 8;
 
   useEffect(() => {
@@ -34,20 +34,24 @@ const AnotherJob: React.FC = () => {
       try {
         const response = await fetch('/AnotherJob.json');
         if (!response.ok) {
-          throw new Error('Gagal mengambil data');
+          throw new Error('Failed to fetch data');
         }
 
         const data = await response.json();
-
-        const formattedJobs = data.map((job: any) => ({
-          ...job,
-          is_active: job.is_active === 'True',
-        }));
-
-        setJobs(formattedJobs);
+        
+        // Check if the data format is correct before using it
+        if (Array.isArray(data)) {
+          const formattedJobs: Job[] = data.map((job: any) => ({
+            ...job,
+            is_active: job.is_active === 'True',
+          }));
+          setJobs(formattedJobs);
+        } else {
+          throw new Error('Data is not in expected format');
+        }
       } catch (err) {
         console.error(err);
-        setError('Gagal mengambil data lowongan');
+        setError('Failed to load job listings');
       } finally {
         setLoading(false);
       }
@@ -56,7 +60,7 @@ const AnotherJob: React.FC = () => {
     fetchJobs();
   }, []);
 
-  // Filter berdasarkan pencarian
+  // Filter jobs based on the search query
   const filteredJobs = jobs.filter((job) => {
     return (
       job.job_title.toLowerCase().includes(searchQuery.toLowerCase()) ||

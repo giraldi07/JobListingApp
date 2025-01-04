@@ -1,21 +1,25 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import path from 'path';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: './', // Gunakan './' untuk path relatif (berguna jika deploy di subfolder)
   plugins: [react()],
-  build: {
-    outDir: 'dist', // Output build folder (default: 'dist')
-    assetsDir: 'assets', // Folder untuk menyimpan asset statis di dalam 'dist'
-    rollupOptions: {
-      output: {
-        assetFileNames: 'assets/[name]-[hash].[ext]', // Pattern untuk penamaan file asset
-      },
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'), // Alias untuk folder src
+      '@assets': path.resolve(__dirname, './src/assets'),
+      '@components': path.resolve(__dirname, './src/components'),
+      '@data': path.resolve(__dirname, './src/data'),
     },
   },
+  build: {
+    outDir: 'dist', // Output folder
+    assetsDir: 'assets', // Folder untuk static assets dalam dist
+  },
+  base: './', // Tambahkan base untuk memastikan path relatif pada build
   server: {
-    port: 3000, // Port development server
-    open: true, // Otomatis buka browser saat server dijalankan
+    open: true, // Membuka browser otomatis saat menjalankan dev server
+    port: 3000, // Port server
   },
 });
