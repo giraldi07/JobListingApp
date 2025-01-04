@@ -7,7 +7,12 @@ export default defineConfig({
   plugins: [react()],
   build: {
     outDir: 'dist', // Output build folder (default: 'dist')
-    assetsDir: './assets', // Folder untuk menyimpan asset statis
+    assetsDir: 'assets', // Folder untuk menyimpan asset statis di dalam 'dist'
+    rollupOptions: {
+      output: {
+        assetFileNames: 'assets/[name]-[hash].[ext]', // Pattern untuk penamaan file asset
+      },
+    },
   },
   server: {
     port: 3000, // Port development server
