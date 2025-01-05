@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { FaGithub, FaRegFileAlt, FaUsers, FaGlobeAmericas, FaHeart } from 'react-icons/fa';
+import qrImage from '/src/assets/qr.jpg';
+
 
 const About: React.FC = () => {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -128,7 +130,7 @@ const About: React.FC = () => {
                   Jika kamu ingin mendukung pengembangan lebih lanjut, kamu bisa menggunakan QR code di bawah ini untuk melakukan pembayaran:
                 </p>
                 {/* QR Code Image */}
-                <img src="/src/assets/qr.jpg" alt="QR Code for Payment" className="w-48 sm:w-56 md:w-64 mx-auto mb-6" />
+                <img src={qrImage} alt="QR Code for Payment" className="w-48 sm:w-56 md:w-64 mx-auto mb-6" />
                 <p className="text-lg text-gray-300 mb-6">Scan QR code untuk mendukung kami.</p>
 
                 {/* QR Scan Simulation Button */}
