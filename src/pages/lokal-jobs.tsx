@@ -9,12 +9,12 @@ const LokalJobs = () => {
   const [jobsDealls, setJobsDealls] = useState<any[]>([]);
   const [activeSource, setActiveSource] = useState("dicoding");
   const [currentPage, setCurrentPage] = useState(1);
-  const [loading, setLoading] = useState(true); // Loading state
-  const [searchQuery, setSearchQuery] = useState(""); // Search query state
+  const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     const fetchJobs = async () => {
-      setLoading(true); // Set loading to true before fetching data
+      setLoading(true);
       try {
         const dicodingResponse = await fetch("https://jobs-api-indonesia.vercel.app/api/dicoding");
         const dicodingData = await dicodingResponse.json();
@@ -30,7 +30,7 @@ const LokalJobs = () => {
       } catch (error) {
         console.error("Error fetching jobs:", error);
       } finally {
-        setLoading(false); // Set loading to false after data is fetched
+        setLoading(false);
       }
     };
 
@@ -96,14 +96,13 @@ const LokalJobs = () => {
 
   const handleSourceChange = (source: string) => {
     setActiveSource(source);
-    setCurrentPage(1); // Reset halaman ke 1 setiap kali sumber diubah
+    setCurrentPage(1);
   };
 
   const handlePaginationChange = (direction: string) => {
     setCurrentPage((prev) => (direction === "next" ? prev + 1 : Math.max(prev - 1, 1)));
   };
 
-  // Search function
   const filterJobs = (jobs: any[]) => {
     if (!searchQuery) return jobs;
     return jobs.filter((job) =>
@@ -120,12 +119,35 @@ const LokalJobs = () => {
       ? filterJobs(jobsIndeed)
       : filterJobs(jobsDealls);
 
+  useEffect(() => {
+    // Dynamically add Google Ads script
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
+    script.onload = () => {
+      // Initialize Google Ads after the script is loaded
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+    };
+    document.body.appendChild(script);
+  }, []);
+
+
   return (
     <div className="mx-auto px-6 sm:px-12 lg:px-24 py-10 bg-slate-900 min-h-screen">
       <div className="mb-10 border-b border-slate-800">
         <HeroPage />
       </div>
       <h1 className="mt-24 text-4xl font-bold text-center text-white mb-10">Lokal Jobs</h1>
+
+      {/* Google Ads Section */}
+      <div className="mb-10 text-center">
+        <ins className="adsbygoogle"
+          style={{ display: 'block' }}
+          data-ad-client="ca-pub-XXXXXXX" // Replace with your AdSense client ID
+          data-ad-slot="XXXXXXX" // Replace with your AdSense ad slot
+          data-ad-format="auto">
+        </ins>
+      </div>
 
       {/* Search Section */}
       <div className="flex justify-center mb-6">

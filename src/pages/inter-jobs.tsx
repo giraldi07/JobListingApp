@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { FaMapMarkerAlt, FaDollarSign, FaBriefcase, FaCalendarAlt } from "react-icons/fa"; // Importing icons
 import HeroPageInter from "../components/HeroPageInter";
+import JobOpportunities from "../components/JobOpportunities";
 
 const ITEMS_PER_PAGE = 15;
 
@@ -155,32 +156,41 @@ const InterJobs = () => {
 
         {/* Buttons Section */}
         <div className="flex justify-center space-x-2 mb-6">
-        <button
-            onClick={() => handleSourceChange("remote")}
-            className={`px-3 py-1.5 text-sm rounded-md ${activeSource === "remote" ? "bg-blue-500" : "bg-slate-700"} text-white hover:bg-blue-400 transition-all duration-300`}
-        >
-            Remote
-        </button>
-        <button
-            onClick={() => handleSourceChange("int")}
-            className={`px-3 py-1.5 text-sm rounded-md ${activeSource === "int" ? "bg-blue-500" : "bg-slate-700"} text-white hover:bg-blue-400 transition-all duration-300`}
-        >
-            IntJobs
-        </button>
-        <button
-            onClick={() => handleSourceChange("glf")}
-            className={`px-3 py-1.5 text-sm rounded-md ${activeSource === "glf" ? "bg-blue-500" : "bg-slate-700"} text-white hover:bg-blue-400 transition-all duration-300`}
-        >
-            GLF
-        </button>
-        <button
-            onClick={() => handleSourceChange("careerjet")}
-            className={`px-3 py-1.5 text-sm rounded-md ${activeSource === "careerjet" ? "bg-blue-500" : "bg-slate-700"} text-white hover:bg-blue-400 transition-all duration-300`}
-        >
-            Careerjet
-        </button>
+          <button
+              onClick={() => handleSourceChange("remote")}
+              className={`px-3 py-1.5 text-sm rounded-md ${activeSource === "remote" ? "bg-blue-500" : "bg-slate-700"} text-white hover:bg-blue-400 transition-all duration-300`}
+          >
+              Remote
+          </button>
+          <button
+              onClick={() => handleSourceChange("int")}
+              className={`px-3 py-1.5 text-sm rounded-md ${activeSource === "int" ? "bg-blue-500" : "bg-slate-700"} text-white hover:bg-blue-400 transition-all duration-300`}
+          >
+              IntJobs
+          </button>
+          <button
+              onClick={() => handleSourceChange("glf")}
+              className={`px-3 py-1.5 text-sm rounded-md ${activeSource === "glf" ? "bg-blue-500" : "bg-slate-700"} text-white hover:bg-blue-400 transition-all duration-300`}
+          >
+              GLF
+          </button>
+          <button
+              onClick={() => handleSourceChange("careerjet")}
+              className={`px-3 py-1.5 text-sm rounded-md ${activeSource === "careerjet" ? "bg-blue-500" : "bg-slate-700"} text-white hover:bg-blue-400 transition-all duration-300`}
+          >
+              Careerjet
+          </button>
         </div>
 
+        {/* Google Ads Block */}
+        <div className="ads-container mb-6">
+          <h2 className="text-xl font-semibold text-white">Find Your Ideal Job Today</h2>
+          <p className="text-gray-300 mt-4">Explore various job opportunities across multiple platforms and industries. Whether you are looking for remote work or jobs abroad, we've got you covered!</p>
+          {/* Add your Google Ads code here */}
+          <div id="adsense-block" className="mt-4">
+            {/* Replace with your Google AdSense script or ad code */}
+          </div>
+        </div>
 
       {/* Loading State */}
       {loading ? (
@@ -211,6 +221,10 @@ const InterJobs = () => {
           </div>
         </>
       )}
+
+      <div className="bg-gray-900 p-8 my-16 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
+        <JobOpportunities />
+      </div>
     </div>
   );
 };
